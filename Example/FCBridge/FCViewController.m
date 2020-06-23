@@ -7,6 +7,7 @@
 //
 
 #import "FCViewController.h"
+#import "FCTool.h"
 
 @interface FCViewController ()
 

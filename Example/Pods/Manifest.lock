@@ -1,0 +1,27 @@
+PODS:
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
+  - FCBridge (0.1.0)
+
+DEPENDENCIES:
+  - FBSnapshotTestCase
+  - FCBridge (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - FBSnapshotTestCase
+
+EXTERNAL SOURCES:
+  FCBridge:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  FCBridge: f7018b4f153eb86a51bb463704e6f89c1d9be450
+
+PODFILE CHECKSUM: 3c164825d496a9f2b76c3e78c8cb438eb0c12fa2
+
+COCOAPODS: 1.8.3

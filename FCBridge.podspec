@@ -31,6 +31,7 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'FCBridge/Classes/**/*'
+  s.resource = 'FCBridge/Classes/*.bundle'
   
   # s.resource_bundles = {
   #   'FCBridge' => ['FCBridge/Assets/*.png']
