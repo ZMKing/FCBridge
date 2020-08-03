@@ -183,7 +183,7 @@
 
     NSString *scriptPath = [NSString stringWithFormat:@"%@/%@",bundlePath, @"FCJSBridge.js"];
     NSString *bridgeJSString = [[NSString alloc] initWithContentsOfFile:scriptPath encoding:NSUTF8StringEncoding error:NULL];
-
+    NSLog(@"=======%@", bridgeJSString);
     WKUserScript *userScript = [[WKUserScript alloc] initWithSource:bridgeJSString injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
 
     [configuration.userContentController addUserScript:userScript];

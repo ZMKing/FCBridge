@@ -21,6 +21,7 @@ window.SM = {
         setLocationDescription:setLocationDescriptionsmbridgejs, // 设置位置权限
         getLocationDescription:getLocationDescriptionsmbridgejs, // 获取已设置的位置权限类型
     }
+
 };
 
 String.prototype.hashCode = function() {
@@ -161,7 +162,7 @@ function getQrCodesmbridgejs(success){
     var timestamp = Date.parse(new Date());
     var identifier = ('storage' + 'getUserInfo' + dataString + timestamp).hashCode().toString();
     window.FCCallBackList[identifier] = success;
-    console.log('=========getQrCodesmbridgejs========');
+
     window.webkit.messageHandlers.WKNativeMethodMessage.postMessage({
         targetName:'camera',
         actionName:'getQrCode',

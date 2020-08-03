@@ -24,10 +24,16 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>使用相机拍照及扫描二维码</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>需要实时定位您是否在可打卡签到范围内</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>签到需要访问你的定位</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>允许后可以保存图片到相册</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>允许后可以保存图片到相册</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

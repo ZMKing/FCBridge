@@ -225,6 +225,8 @@ static NSString *POSTRequest = @"POST";
     NSString *bundlePath = _backImagePath ?: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"FCJSResources.bundle"];
     NSString *backImgPath = [bundlePath stringByAppendingPathComponent:@"webView_back"];
     UIImage *backImage = [UIImage imageNamed:backImgPath];
+    
+    
     _backItem = [[UIBarButtonItem alloc] initWithImage:backImage
                                                  style:UIBarButtonItemStylePlain
                                                 target:self

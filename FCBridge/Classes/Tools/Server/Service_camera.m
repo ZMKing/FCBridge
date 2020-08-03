@@ -31,7 +31,7 @@
 
 
 - (void)func_getQrCode:(NSDictionary *)param{
-    NSLog(@"-----1-------%@", param);
+
     if (@available(iOS 10.0, *)) {
         AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
         if (status == AVAuthorizationStatusRestricted || status == AVAuthorizationStatusDenied)
@@ -40,7 +40,6 @@
             return;
         }
     }
-        
         
     FCScanViewController * vc = [[FCScanViewController alloc] init];
     
@@ -62,13 +61,13 @@
             failCallback(resultDict);
         }
     };
-    
+    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:vc animated:YES completion:nil];
     
 }
 
 - (void)func_getBarCode:(NSDictionary *)param{
-    NSLog(@"-----2-------%@", param);
+
     if (@available(iOS 10.0, *)) {
         AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
         if (status == AVAuthorizationStatusRestricted || status == AVAuthorizationStatusDenied)
@@ -99,10 +98,8 @@
         }
     };
     
+    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:vc animated:YES completion:nil];
-        
-    
-
 }
 
 

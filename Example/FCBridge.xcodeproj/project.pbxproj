@@ -67,6 +67,7 @@
 		8D348209FA96543F150CCE6B /* Pods-FCBridge_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FCBridge_Tests.debug.xcconfig"; path = "Target Support Files/Pods-FCBridge_Tests/Pods-FCBridge_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		9C4E699824A20810001F3851 /* TestWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestWebViewController.h; sourceTree = "<group>"; };
 		9C4E699924A20810001F3851 /* TestWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestWebViewController.m; sourceTree = "<group>"; };
+		9CB4C42C24D801830051B9D9 /* FCBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FCBridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C378CFF80877BF624132C4B5 /* Pods_FCBridge_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FCBridge_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8E79BBB40672408A2C842ED /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		F57F7EF7458ACEDD693916C3 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -133,6 +134,7 @@
 		6003F58C195388D20070C39A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9CB4C42C24D801830051B9D9 /* FCBridge.framework */,
 				6003F58D195388D20070C39A /* Foundation.framework */,
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
@@ -526,6 +528,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FCBridge/FCBridge-Prefix.pch";
 				INFOPLIST_FILE = "FCBridge/FCBridge-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = lianboera.com.healthpoor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -543,6 +546,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FCBridge/FCBridge-Prefix.pch";
 				INFOPLIST_FILE = "FCBridge/FCBridge-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = lianboera.com.healthpoor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
