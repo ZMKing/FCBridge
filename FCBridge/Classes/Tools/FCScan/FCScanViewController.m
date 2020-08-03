@@ -32,6 +32,8 @@
 /** 手电筒提示Label */
 @property (nonatomic, strong) UILabel * flashlightHintLabel;
 
+@property (nonatomic, strong) NSString *bundlePath;
+
 @end
 
 @implementation FCScanViewController
@@ -58,6 +60,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.bundlePath = [[NSBundle bundleForClass:self.class] pathForResource:@"FCJSResources" ofType:@"bundle"];
     [self capture];
     [self addUI];
 }
@@ -66,6 +69,7 @@
  *  添加遮罩层
  */
 - (void)addUI{
+    
     self.maskView = [[FCMaskView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [self.view addSubview:self.maskView];
     
@@ -75,7 +79,9 @@
     
     self.backButton = [UIButton buttonWithType:UIButtonTypeSystem];
     self.backButton.frame = CGRectMake(0, 0, back_width, back_height);
-    [self.backButton setImage:[[UIImage imageNamed:@"Down"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+   
+    [self.backButton setImage:[[UIImage imageNamed:[NSString stringWithFormat:@"%@/%@",self.bundlePath, @"Down"]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+
     [self.backButton addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.backButton];
     
@@ -95,7 +101,8 @@
     
     self.flashlight = [UIButton buttonWithType:UIButtonTypeCustom];
     self.flashlight.frame = CGRectMake(0, 0, flashlight_width, flashlight_height);
-    [self.flashlight setImage:[UIImage imageNamed:@"Flashlight_N"] forState:UIControlStateNormal];
+  
+    [self.flashlight setImage:[UIImage imageNamed: [NSString stringWithFormat:@"%@/%@",self.bundlePath, @"Flashlight_N"]] forState:UIControlStateNormal];
     [self.flashlight addTarget:self action:@selector(flashlightAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.flashlight];
     
@@ -178,7 +185,8 @@
 - (void)flashlightAction:(UIButton *)sender{
     sender.selected = !sender.selected;
     if (sender.selected) {
-        [sender setImage:[UIImage imageNamed:@"Flashlight_H"] forState:UIControlStateSelected];
+        
+        [sender setImage:[UIImage imageNamed: [NSString stringWithFormat:@"%@/%@",self.bundlePath, @"Flashlight_H"]] forState:UIControlStateSelected];
         self.flashlightHintLabel.textColor = FCColor(133, 235, 0, 1);
         
         //打开闪光灯
@@ -194,7 +202,8 @@
         }
         
     }else{
-        [sender setImage:[UIImage imageNamed:@"Flashlight_N"] forState:UIControlStateSelected];
+         
+        [sender setImage:[UIImage imageNamed: [NSString stringWithFormat:@"%@/%@",self.bundlePath, @"Flashlight_N"]] forState:UIControlStateSelected];
         self.flashlightHintLabel.textColor = FCWhite;
         
         //关闭闪光灯

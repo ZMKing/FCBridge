@@ -62,11 +62,12 @@
     self.hintLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:self.hintLabel];
     
+    NSString *bundlePath = [[NSBundle bundleForClass:self.class] pathForResource:@"FCJSResources" ofType:@"bundle"];
     //边框
-    UIImage * topLeft = [UIImage imageNamed:@"ScanQR1"];
-    UIImage * topRight = [UIImage imageNamed:@"ScanQR2"];
-    UIImage * bottomLeft = [UIImage imageNamed:@"ScanQR3"];
-    UIImage * bottomRight = [UIImage imageNamed:@"ScanQR4"];
+    UIImage * topLeft = [UIImage imageNamed:[NSString stringWithFormat:@"%@/%@", bundlePath, @"ScanQR1"]];
+    UIImage * topRight = [UIImage imageNamed:[NSString stringWithFormat:@"%@/%@", bundlePath, @"ScanQR2"]];
+    UIImage * bottomLeft = [UIImage imageNamed:[NSString stringWithFormat:@"%@/%@", bundlePath, @"ScanQR3"]];
+    UIImage * bottomRight = [UIImage imageNamed:[NSString stringWithFormat:@"%@/%@", bundlePath, @"ScanQR4"]];
     
     //左上
     self.topLeftImg = [[UIImageView alloc] init];
@@ -89,7 +90,7 @@
     [self addSubview:self.bottomRightImg];
     
     //扫描线
-    UIImage * scanLine = [UIImage imageNamed:@"QRCodeScanLine"];
+    UIImage * scanLine = [UIImage imageNamed:[NSString stringWithFormat:@"%@/%@",bundlePath, @"QRCodeScanLine"]];
     self.scanLineImg = [[UIImageView alloc] init];
     self.scanLineImg.image = scanLine;
     self.scanLineImg.contentMode = UIViewContentModeScaleAspectFit;

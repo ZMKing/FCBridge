@@ -15,5 +15,10 @@
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "FCBridge/Classes/**/*"
+  "source_files": "FCBridge/**/*",
+  "resource_bundles": {
+    "FCBridge": [
+      "FCBridge/**/*.png"
+    ]
+  }
 }

@@ -30,15 +30,12 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self setUpImagePicker:self.type];
-    NSLog(@"====self.type=====%d", self.type);
     self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     
     [self addChildViewController:self.picker];
     self.picker.view.frame = self.view.bounds;
     [self.view addSubview:self.picker.view];
     [self.view layoutIfNeeded];
-
-
 }
 
 #pragma mark - imagePicker delegate

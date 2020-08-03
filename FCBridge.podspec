@@ -7,8 +7,12 @@
 #
 
 Pod::Spec.new do |s|
+    
+  #开源库的名字
   s.name             = 'FCBridge'
-  s.version          = '0.0.3'
+  #开源库当期版本
+  s.version          = '0.0.4'
+  #开源库概述（打开GitHub能看到的描述）
   s.summary          = 'A short description of FCBridge.'
 
 # This description is used to generate tags and improve search results.
@@ -16,28 +20,36 @@ Pod::Spec.new do |s|
 #   * Try to keep it short, snappy and to the point.
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!
-
+#开源库描述 （这个描述会被用来生成开源库的标签和提高被搜到，必需写在中间一行，只要在中间一行，不需要考虑缩进）
   s.description      = <<-DESC
 TODO: Add long description of the pod here.
                        DESC
-
+  #可以是开源库的GitHub地址，也可以是你自己的网址等
   s.homepage         = 'https://github.com/ZMKing/FCBridge'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-  s.license          = 'MIT'
-  s.author           = { '' => '' }
-  s.source           = { :git => 'https://github.com/ZMKing/FCBridge.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
-
-  s.ios.deployment_target = '8.0'
-
-  s.source_files = 'FCBridge/Classes/**/*'
-#  s.resource = 'FCBridge/Classes/*.bundle'
   
-  # s.resource_bundles = {
-  #   'FCBridge' => ['FCBridge/Assets/*.png']
-  # }
+  #我这里是参靠网上的一种写法，不会报警告，也可以直接 s.license = 'MIT'
+  s.license          = 'MIT'
+  #开源库作者
+  s.author           = { '' => '' }
+  s.source           = { :git => 'https://github.com/ZMKing/FCBridge.git', :tag => s.version }
+
+  #开源库支持的平台（暂时没考虑tvOS、OSX等）
+  s.platform     = :ios
+  
+  s.ios.deployment_target = '9.0'
+
+  s.source_files = 'FCBridge/**/*'
+#  s.resource = 'FCBridge/*.bundle'
+  
+#   s.resource_bundles = {
+#     'FCBridge' => ['FCBridge/**/*.png']
+#   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
+  
+  # 是否支持arc
+  s.requires_arc = true
 end
