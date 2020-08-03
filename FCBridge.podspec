@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   #开源库的名字
   s.name             = 'FCBridge'
   #开源库当期版本
-  s.version          = '0.0.5'
+  s.version          = '0.0.6'
   #开源库概述（打开GitHub能看到的描述）
   s.summary          = 'A short description of FCBridge.'
 
@@ -43,7 +43,7 @@ TODO: Add long description of the pod here.
 #  s.resource = 'FCBridge/*.bundle'
   
    s.resource_bundles = {
-     'FCBridge' => ['FCBridge/*.bundle']
+     'FCBridge' => ['FCBridge/Classes/*.bundle']
    }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
