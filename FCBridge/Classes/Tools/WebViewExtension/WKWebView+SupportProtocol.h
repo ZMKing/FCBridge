@@ -1,6 +1,6 @@
 //
 //  WKWebView+SupportProtocol.h
-//  JXBWebKit
+//  FCWebKit
 //
 //  Created by jinxiubo on 2018/7/31.
 //  Copyright © 2018年 jinxiubo. All rights reserved.
@@ -20,7 +20,7 @@
 
 /**
  注销之前注册拦截的scheme
- 
+
  @param supportHTTP 是否注销拦截HTTP(s)
  @param customSchemeArray 其他scheme
  */

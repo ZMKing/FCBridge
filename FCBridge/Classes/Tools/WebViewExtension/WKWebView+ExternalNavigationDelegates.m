@@ -1,6 +1,6 @@
 //
 //  WKWebView+ExternalNavigationDelegates.m
-//  JXBWebKit
+//  FCWebKit
 //
 //  Created by jinxiubo on 2018/5/17.
 //  Copyright © 2018年 jinxiubo. All rights reserved.
@@ -60,9 +60,9 @@
 - (void)webView:(WKWebView *)webView
 decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
 decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    
+
     id<WKNavigationDelegate> mainDelegate = self.mainNavigationDelegate;
-    
+
     if ([mainDelegate respondsToSelector:_cmd]) {
         [mainDelegate webView:webView decidePolicyForNavigationAction:navigationAction decisionHandler:decisionHandler];
     } else {
@@ -82,7 +82,7 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse
 decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
     id<WKNavigationDelegate> mainDelegate = self.mainNavigationDelegate;
-    
+
     if ([mainDelegate respondsToSelector:_cmd]) {
         [mainDelegate webView:webView decidePolicyForNavigationResponse:navigationResponse decisionHandler:decisionHandler];
     } else {
@@ -100,13 +100,13 @@ decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
 }
 
 - (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation {
-    
+
     id<WKNavigationDelegate> mainDelegate = self.mainNavigationDelegate;
-    
+
     if ([mainDelegate respondsToSelector:_cmd]) {
         [mainDelegate webView:webView didCommitNavigation:navigation];
     }
-    
+
     for (id delegate in self.weakNavigationDelegates.allObjects) {
         if ([delegate respondsToSelector:_cmd]) {
             [delegate webView:webView didCommitNavigation:navigation];
@@ -115,13 +115,13 @@ decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
 }
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation {
-    
+
     id<WKNavigationDelegate> mainDelegate = self.mainNavigationDelegate;
-    
+
     if ([mainDelegate respondsToSelector:_cmd]) {
         [mainDelegate webView:webView didStartProvisionalNavigation:navigation];
     }
-    
+
     for (id delegate in self.weakNavigationDelegates.allObjects) {
         if ([delegate respondsToSelector:_cmd]) {
             [delegate webView:webView didStartProvisionalNavigation:navigation];
@@ -130,13 +130,13 @@ decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    
+
     id<WKNavigationDelegate> mainDelegate = self.mainNavigationDelegate;
-    
+
     if ([mainDelegate respondsToSelector:_cmd]) {
         [mainDelegate webView:webView didFinishNavigation:navigation];
     }
-    
+
     for (id delegate in self.weakNavigationDelegates.allObjects) {
         if ([delegate respondsToSelector:_cmd]) {
             [delegate webView:webView didFinishNavigation:navigation];
@@ -145,13 +145,13 @@ decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
-    
+
     id<WKNavigationDelegate> mainDelegate = self.mainNavigationDelegate;
-    
+
     if ([mainDelegate respondsToSelector:_cmd]) {
         [mainDelegate webView:webView didFailNavigation:navigation withError:error];
     }
-    
+
     for (id delegate in self.weakNavigationDelegates.allObjects) {
         if ([delegate respondsToSelector:_cmd]) {
             [delegate webView:webView didFailNavigation:navigation withError:error];
@@ -162,13 +162,13 @@ decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
 - (void)webView:(WKWebView *)webView
 didFailProvisionalNavigation:(WKNavigation *)navigation
       withError:(NSError *)error {
-    
+
     id<WKNavigationDelegate> mainDelegate = self.mainNavigationDelegate;
-    
+
     if ([mainDelegate respondsToSelector:_cmd]) {
         [mainDelegate webView:webView didFailProvisionalNavigation:navigation withError:error];
     }
-    
+
     for (id delegate in self.weakNavigationDelegates.allObjects) {
         if ([delegate respondsToSelector:_cmd]) {
             [delegate webView:webView didFailProvisionalNavigation:navigation withError:error];
@@ -180,11 +180,11 @@ didFailProvisionalNavigation:(WKNavigation *)navigation
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
     if (@available(iOS 9.0, *)) {
         id<WKNavigationDelegate> mainDelegate = self.mainNavigationDelegate;
-        
+
         if ([mainDelegate respondsToSelector:_cmd]) {
             [mainDelegate webViewWebContentProcessDidTerminate:webView];
         }
-        
+
         for (id delegate in self.weakNavigationDelegates.allObjects) {
             if ([delegate respondsToSelector:_cmd]) {
                 [delegate webViewWebContentProcessDidTerminate:webView];
@@ -196,13 +196,13 @@ didFailProvisionalNavigation:(WKNavigation *)navigation
 
 - (void)webView:(WKWebView *)webView
 didReceiveServerRedirectForProvisionalNavigation:(null_unspecified WKNavigation *)navigation {
-    
+
     id<WKNavigationDelegate> mainDelegate = self.mainNavigationDelegate;
-    
+
     if ([mainDelegate respondsToSelector:_cmd]) {
         [mainDelegate webView:webView didReceiveServerRedirectForProvisionalNavigation:navigation];
     }
-    
+
     for (id delegate in self.weakNavigationDelegates.allObjects) {
         if ([delegate respondsToSelector:_cmd]) {
             [delegate webView:webView didReceiveServerRedirectForProvisionalNavigation:navigation];
@@ -249,24 +249,24 @@ didReceiveServerRedirectForProvisionalNavigation:(null_unspecified WKNavigation 
 
 #pragma mark - Public Method
 - (void)useExternalNavigationDelegate{
-    
+
     if ([self isUseExternalDelegate] && [self delegateDispatcher]) {
         return;
     }
-    
+
     [self setDelegateDispatcher:[[_WKWebViewDelegateDispatcher alloc] init]];
     [self setOriginalNavigationDelegate:self.navigationDelegate];
-    
+
     [self setNavigationDelegate:[self delegateDispatcher]];
     [[self delegateDispatcher] addNavigationDelegate:[self originalNavigationDelegate]];
-    
+
     [self setIsUseExternalDelegate:YES];
 }
 
 - (void)unUseExternalNavigationDelegate{
-    
+
     [self setNavigationDelegate:[self originalNavigationDelegate]];
-    
+
     [self setDelegateDispatcher:nil];
     [self setIsUseExternalDelegate:NO];
 }

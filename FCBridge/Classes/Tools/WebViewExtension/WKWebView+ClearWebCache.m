@@ -1,6 +1,6 @@
 //
 //  WKWebView+ClearWebCache.m
-//  JXBWebKit
+//  FCWebKit
 //
 //  Created by jinxiubo on 2018/5/10.
 //  Copyright © 2018年 jinxiubo. All rights reserved.
@@ -24,7 +24,7 @@
                                                             WKWebsiteDataTypeIndexedDBDatabases,
                                                             WKWebsiteDataTypeWebSQLDatabases
                                                             ]];
-            
+
             NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
             [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:websiteDataTypes
                                                        modifiedSince:dateFrom
@@ -48,17 +48,17 @@
 }
 
 FOUNDATION_STATIC_INLINE void clearWebViewCacheFolderByType(NSString *cacheType) {
-    
+
     static dispatch_once_t once;
     static NSDictionary *cachePathMap = nil;
-    
+
     dispatch_once(&once,
                   ^{
                       NSString *bundleId = [NSBundle mainBundle].infoDictionary[(NSString *)kCFBundleIdentifierKey];
                       NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];
                       NSString *storageFileBasePath = [libraryPath stringByAppendingPathComponent:
                                                        [NSString stringWithFormat:@"WebKit/%@/WebsiteData/", bundleId]];
-                      
+
                       cachePathMap = @{@"WKWebsiteDataTypeCookies":
                                            [libraryPath stringByAppendingPathComponent:@"Cookies/Cookies.binarycookies"],
                                        @"WKWebsiteDataTypeLocalStorage":
@@ -69,7 +69,7 @@ FOUNDATION_STATIC_INLINE void clearWebViewCacheFolderByType(NSString *cacheType)
                                            [storageFileBasePath stringByAppendingPathComponent:@"WebSQL"]
                                        };
                   });
-    
+
     NSString *filePath = cachePathMap[cacheType];
     if (filePath && filePath.length > 0) {
         if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {

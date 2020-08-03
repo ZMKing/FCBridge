@@ -1,0 +1,46 @@
+//
+//  TestWebViewController.m
+//  FCBridge_Example
+//
+//  Created by 李再民 on 2020/6/23.
+//  Copyright © 2020 ZMKing. All rights reserved.
+//
+
+#import "TestWebViewController.h"
+
+@interface TestWebViewController ()
+
+@end
+
+@implementation TestWebViewController
+
+- (instancetype)init {
+    if (self = [super init]) {
+        //进度条颜色
+        self.progressTintColor = [UIColor blackColor];
+        //拦截每次请求的url
+        self.needInterceptRequest = YES;
+    }
+    return self;
+}
+
+- (void)interceptRequestWithNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    decisionHandler(WKNavigationActionPolicyAllow);
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Warning" style:0 target:self action:@selector(warningAcition)];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)warningAcition {
+    [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+}
+
+@end

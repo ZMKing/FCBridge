@@ -24,7 +24,7 @@ TODO: Add long description of the pod here.
   s.homepage         = 'https://github.com/ZMKing/FCBridge'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = 'MIT'
-  s.author           = { 'lizaimin521@163.com' => 'lizaimin316590' }
+  s.author           = { '' => '' }
   s.source           = { :git => 'https://github.com/ZMKing/FCBridge.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 

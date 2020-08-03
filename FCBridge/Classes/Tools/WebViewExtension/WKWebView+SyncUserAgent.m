@@ -1,6 +1,6 @@
 //
 //  WKWebView+SyncConfigUA.m
-//  JXBWebKit
+//  FCWebKit
 //
 //  Created by jinxiubo on 2018/5/23.
 //  Copyright © 2018年 jinxiubo. All rights reserved.
@@ -12,11 +12,11 @@
 
 - (void)syncCustomUserAgentWithType:(CustomUserAgentType)type
                     customUserAgent:(NSString *)customUserAgent {
-    
+
     if (!customUserAgent || customUserAgent.length <= 0) {
         return;
     }
-    
+
     if(type == CustomUserAgentTypeReplace){
         if (@available(iOS 9.0, *)) {
             self.customUserAgent = customUserAgent;

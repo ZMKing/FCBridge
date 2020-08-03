@@ -1,13 +1,13 @@
 //
 //  UIProgressView+WKWebView.m
-//  JXBWebKit
+//  FCWebKit
 //
 //  Created by jinxiubo on 2018/5/4.
 //  Copyright © 2018年 jinxiubo. All rights reserved.
 //
 
 #import "UIProgressView+WKWebView.h"
-#import "JXBWebViewController.h"
+#import "FCWebViewController.h"
 #import <objc/runtime.h>
 
 @implementation UIProgressView (WKWebView)
@@ -74,11 +74,11 @@
     objc_setAssociatedObject(self, @selector(hiddenWhenWebDidLoad), @(hiddenWhenWebDidLoad), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (JXBWebViewController *)webViewController {
+- (FCWebViewController *)webViewController {
     return objc_getAssociatedObject(self, _cmd);
 }
 
-- (void)setWebViewController:(JXBWebViewController *)webViewController {
+- (void)setWebViewController:(FCWebViewController *)webViewController {
     objc_setAssociatedObject(self, @selector(webViewController), webViewController, OBJC_ASSOCIATION_ASSIGN);
 }
 
