@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   #开源库的名字
   s.name             = 'FCBridge'
   #开源库当期版本
-  s.version          = '0.0.4'
+  s.version          = '0.0.5'
   #开源库概述（打开GitHub能看到的描述）
   s.summary          = 'A short description of FCBridge.'
 
@@ -37,14 +37,14 @@ TODO: Add long description of the pod here.
   #开源库支持的平台（暂时没考虑tvOS、OSX等）
   s.platform     = :ios
   
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '8.0'
 
-  s.source_files = 'FCBridge/**/*'
+  s.source_files = "FCBridge/**/*.{h,m}"
 #  s.resource = 'FCBridge/*.bundle'
   
-#   s.resource_bundles = {
-#     'FCBridge' => ['FCBridge/**/*.png']
-#   }
+   s.resource_bundles = {
+     'FCBridge' => ['FCBridge/*.bundle']
+   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
