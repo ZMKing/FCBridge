@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   #开源库的名字
   s.name             = 'FCBridge'
   #开源库当期版本
-  s.version          = '0.0.6'
+  s.version          = '1.0.0'
   #开源库概述（打开GitHub能看到的描述）
   s.summary          = 'A short description of FCBridge.'
 
