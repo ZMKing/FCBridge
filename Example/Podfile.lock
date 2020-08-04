@@ -4,7 +4,7 @@ PODS:
   - FBSnapshotTestCase/Core (2.1.4)
   - FBSnapshotTestCase/SwiftSupport (2.1.4):
     - FBSnapshotTestCase/Core
-  - FCBridge (1.0.0)
+  - FCBridge (0.0.6)
 
 DEPENDENCIES:
   - FBSnapshotTestCase
@@ -20,8 +20,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
-  FCBridge: 25165d5c355af8bed2504ad85a5c936f2dac8661
+  FCBridge: 90f0e7ea70a19c99d5171cbf97f485a875731f27
 
 PODFILE CHECKSUM: 3c164825d496a9f2b76c3e78c8cb438eb0c12fa2
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0.beta.1
