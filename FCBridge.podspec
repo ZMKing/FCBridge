@@ -21,9 +21,7 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 #开源库描述 （这个描述会被用来生成开源库的标签和提高被搜到，必需写在中间一行，只要在中间一行，不需要考虑缩进）
-  s.description      = <<-DESC
-TODO: Add long description of the pod here.
-                       DESC
+  s.description      = 'based on WKWebView'
   #可以是开源库的GitHub地址，也可以是你自己的网址等
   s.homepage         = 'https://github.com/ZMKing/FCBridge'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
@@ -40,11 +38,11 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '8.0'
 
   s.source_files = "FCBridge/**/*.{h,m}"
-#  s.resource = 'FCBridge/*.bundle'
+  s.resource = 'FCBridge/*.bundle'
   
-   s.resource_bundles = {
-     'FCBridge' => ['FCBridge/Classes/*.bundle']
-   }
+#   s.resource_bundles = {
+#     'FCBridge' => ['FCBridge/*.bundle']
+#   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
