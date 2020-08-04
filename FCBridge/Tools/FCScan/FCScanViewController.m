@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "FCMaskView.h"
 #import <ImageIO/ImageIO.h>
+#import "FCColor.h"
 
 @interface FCScanViewController ()<AVCaptureMetadataOutputObjectsDelegate>
 
@@ -70,7 +71,7 @@
  */
 - (void)addUI{
     
-    self.maskView = [[FCMaskView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    self.maskView = [[FCMaskView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
     [self.view addSubview:self.maskView];
     
     //返回按钮
@@ -119,17 +120,17 @@
     //横屏
     if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeLeft || [[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight){
         
-        self.backButton.center = CGPointMake(100, SCREEN_HEIGHT / 2);;
+        self.backButton.center = CGPointMake(100, [UIScreen mainScreen].bounds.size.height / 2);;
         self.backHintLabel.center = CGPointMake(100, CGRectGetMaxY(self.backButton.frame) + CGRectGetHeight(self.backHintLabel.frame) / 2);
-        self.flashlight.center = CGPointMake(SCREEN_WIDTH - 100, SCREEN_HEIGHT / 2);
-        self.flashlightHintLabel.center = CGPointMake(SCREEN_WIDTH - 100, CGRectGetMaxY(self.flashlight.frame) + CGRectGetHeight(self.flashlightHintLabel.frame) / 2);
+        self.flashlight.center = CGPointMake([UIScreen mainScreen].bounds.size.width - 100, [UIScreen mainScreen].bounds.size.height / 2);
+        self.flashlightHintLabel.center = CGPointMake([UIScreen mainScreen].bounds.size.width - 100, CGRectGetMaxY(self.flashlight.frame) + CGRectGetHeight(self.flashlightHintLabel.frame) / 2);
     
     //竖屏
     }else{
-        self.backButton.center = CGPointMake(SCREEN_WIDTH / 4, SCREEN_HEIGHT - 100);
-        self.backHintLabel.center = CGPointMake(SCREEN_WIDTH / 4, CGRectGetMaxY(self.backButton.frame) + CGRectGetHeight(self.backHintLabel.frame) / 2);
-        self.flashlight.center = CGPointMake(SCREEN_WIDTH / 4 * 3, SCREEN_HEIGHT - 100);
-        self.flashlightHintLabel.center = CGPointMake(SCREEN_WIDTH / 4 * 3, CGRectGetMaxY(self.flashlight.frame) + CGRectGetHeight(self.flashlightHintLabel.frame) / 2);
+        self.backButton.center = CGPointMake([UIScreen mainScreen].bounds.size.width / 4, [UIScreen mainScreen].bounds.size.height - 100);
+        self.backHintLabel.center = CGPointMake([UIScreen mainScreen].bounds.size.width / 4, CGRectGetMaxY(self.backButton.frame) + CGRectGetHeight(self.backHintLabel.frame) / 2);
+        self.flashlight.center = CGPointMake([UIScreen mainScreen].bounds.size.width / 4 * 3, [UIScreen mainScreen].bounds.size.height - 100);
+        self.flashlightHintLabel.center = CGPointMake([UIScreen mainScreen].bounds.size.width / 4 * 3, CGRectGetMaxY(self.flashlight.frame) + CGRectGetHeight(self.flashlightHintLabel.frame) / 2);
     }
 }
 
@@ -155,7 +156,7 @@
     [self.session addOutput:metadataOutput];
     
     self.previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
-    self.previewLayer.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    self.previewLayer.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
     self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     self.previewLayer.backgroundColor = [UIColor yellowColor].CGColor;
     [self.view.layer addSublayer:self.previewLayer];
@@ -246,17 +247,17 @@
     //横屏(转之前是横屏，转之后是竖屏)
     if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeLeft || [[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight) {
         
-        self.backButton.center = CGPointMake(SCREEN_HEIGHT / 4, SCREEN_WIDTH - 100);
-        self.backHintLabel.center = CGPointMake(SCREEN_HEIGHT / 4, CGRectGetMaxY(self.backButton.frame) + CGRectGetHeight(self.backHintLabel.frame) / 2);
-        self.flashlight.center = CGPointMake(SCREEN_HEIGHT / 4 * 3, SCREEN_WIDTH - 100);
-        self.flashlightHintLabel.center = CGPointMake(SCREEN_HEIGHT / 4 * 3, CGRectGetMaxY(self.flashlight.frame) + CGRectGetHeight(self.flashlightHintLabel.frame) / 2);
+        self.backButton.center = CGPointMake([UIScreen mainScreen].bounds.size.height / 4, [UIScreen mainScreen].bounds.size.width - 100);
+        self.backHintLabel.center = CGPointMake([UIScreen mainScreen].bounds.size.height / 4, CGRectGetMaxY(self.backButton.frame) + CGRectGetHeight(self.backHintLabel.frame) / 2);
+        self.flashlight.center = CGPointMake([UIScreen mainScreen].bounds.size.height / 4 * 3, [UIScreen mainScreen].bounds.size.width - 100);
+        self.flashlightHintLabel.center = CGPointMake([UIScreen mainScreen].bounds.size.height / 4 * 3, CGRectGetMaxY(self.flashlight.frame) + CGRectGetHeight(self.flashlightHintLabel.frame) / 2);
     
     //竖屏(转之前是竖屏，转之后是横屏)
     }else{
-        self.backButton.center = CGPointMake(100, SCREEN_WIDTH / 2);
+        self.backButton.center = CGPointMake(100, [UIScreen mainScreen].bounds.size.width / 2);
         self.backHintLabel.center = CGPointMake(100, CGRectGetMaxY(self.backButton.frame) + CGRectGetHeight(self.backHintLabel.frame) / 2);
-        self.flashlight.center = CGPointMake(SCREEN_HEIGHT - 100, SCREEN_WIDTH / 2);
-        self.flashlightHintLabel.center = CGPointMake(SCREEN_HEIGHT - 100, CGRectGetMaxY(self.flashlight.frame) + CGRectGetHeight(self.flashlightHintLabel.frame) / 2);
+        self.flashlight.center = CGPointMake([UIScreen mainScreen].bounds.size.height - 100, [UIScreen mainScreen].bounds.size.width / 2);
+        self.flashlightHintLabel.center = CGPointMake([UIScreen mainScreen].bounds.size.height - 100, CGRectGetMaxY(self.flashlight.frame) + CGRectGetHeight(self.flashlightHintLabel.frame) / 2);
         
     }
 }

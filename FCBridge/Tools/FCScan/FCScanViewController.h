@@ -1,6 +1,5 @@
 
 #import <UIKit/UIKit.h>
-#import "FCConst.h"
 
 @interface FCScanViewController : UIViewController
 

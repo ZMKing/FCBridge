@@ -26,7 +26,6 @@
 #import "FCMaskView.h"
 #import "FCScanViewController.h"
 #import "FCColor.h"
-#import "FCConst.h"
 #import "WKAppManager.h"
 #import "WKMessageHandlerHelper.h"
 #import "WKCallNativeMethodMessageHandler.h"

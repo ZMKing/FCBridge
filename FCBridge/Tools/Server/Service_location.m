@@ -89,6 +89,13 @@
     }
 }
 
+- (void)func_h5JumpNavigationBack:(NSDictionary *)param{
+    
+    // 发送通知
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"h5JumpNavigationBack" object:nil];
+    void(^successCallback)(NSDictionary *result) = param[@"success"];
+    successCallback(@{@"msg" : @"返回成功",@"data":@{}});
+}
 
 
 

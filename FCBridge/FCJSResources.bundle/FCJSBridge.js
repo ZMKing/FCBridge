@@ -20,6 +20,7 @@ window.SM = {
     location:{
         setLocationDescription:setLocationDescriptionsmbridgejs, // 设置位置权限
         getLocationDescription:getLocationDescriptionsmbridgejs, // 获取已设置的位置权限类型
+        jumpNavigationBack:jumpNavigationBack  // 调用原生返回上一页
     }
 
 };
@@ -228,6 +229,22 @@ function getLocationDescriptionsmbridgejs(success){
     window.webkit.messageHandlers.WKNativeMethodMessage.postMessage({
         targetName:'location',
         actionName:'getLocationDescription',
+        data:{},
+        identifier:identifier,
+    });
+}
+
+
+function jumpNavigationBack(success){
+    
+    var dataString = encodeURIComponent(JSON.stringify({'type':''}));
+    var timestamp = Date.parse(new Date());
+    var identifier = ('location' + 'jumpNavigationBack' + dataString + timestamp).hashCode().toString();
+    window.FCCallBackList[identifier] = success;
+
+    window.webkit.messageHandlers.WKNativeMethodMessage.postMessage({
+        targetName:'location',
+        actionName:'h5JumpNavigationBack',
         data:{},
         identifier:identifier,
     });

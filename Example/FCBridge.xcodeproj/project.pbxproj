@@ -23,6 +23,7 @@
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		9C4E699A24A20810001F3851 /* TestWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4E699924A20810001F3851 /* TestWebViewController.m */; };
+		9CB4C48924D96A9C0051B9D9 /* FCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB4C48824D96A9C0051B9D9 /* FCNavigationController.m */; };
 		B129E07ADDA2C4F569D9E2B4 /* Pods_FCBridge_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C378CFF80877BF624132C4B5 /* Pods_FCBridge_Tests.framework */; };
 		CB5835C4E0250FBA6E7D93BE /* Pods_FCBridge_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B41421FB6E0CD66AD32307 /* Pods_FCBridge_Example.framework */; };
 /* End PBXBuildFile section */
@@ -68,6 +69,8 @@
 		9C4E699824A20810001F3851 /* TestWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestWebViewController.h; sourceTree = "<group>"; };
 		9C4E699924A20810001F3851 /* TestWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestWebViewController.m; sourceTree = "<group>"; };
 		9CB4C42C24D801830051B9D9 /* FCBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FCBridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CB4C48724D96A9C0051B9D9 /* FCNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCNavigationController.h; sourceTree = "<group>"; };
+		9CB4C48824D96A9C0051B9D9 /* FCNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCNavigationController.m; sourceTree = "<group>"; };
 		C378CFF80877BF624132C4B5 /* Pods_FCBridge_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FCBridge_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8E79BBB40672408A2C842ED /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		F57F7EF7458ACEDD693916C3 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -148,6 +151,8 @@
 		6003F593195388D20070C39A /* Example for FCBridge */ = {
 			isa = PBXGroup;
 			children = (
+				9CB4C48724D96A9C0051B9D9 /* FCNavigationController.h */,
+				9CB4C48824D96A9C0051B9D9 /* FCNavigationController.m */,
 				6003F59C195388D20070C39A /* FCAppDelegate.h */,
 				6003F59D195388D20070C39A /* FCAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
@@ -394,6 +399,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* FCAppDelegate.m in Sources */,
+				9CB4C48924D96A9C0051B9D9 /* FCNavigationController.m in Sources */,
 				6003F5A7195388D20070C39A /* FCViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				9C4E699A24A20810001F3851 /* TestWebViewController.m in Sources */,

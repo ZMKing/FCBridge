@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   #开源库作者
   s.author           = { '' => '' }
-  s.source           = { :git => 'https://github.com/ZMKing/FCBridge.git', :tag => s.version }
+  s.source           = { :git => 'https://github.com/ZMKing/FCBridge.git', :tag => s.version.to_s }
 
   #开源库支持的平台（暂时没考虑tvOS、OSX等）
   s.platform     = :ios

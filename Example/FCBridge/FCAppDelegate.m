@@ -7,12 +7,19 @@
 //
 
 #import "FCAppDelegate.h"
+#import "FCNavigationController.h"
+#import "FCViewController.h"
 
 @implementation FCAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+ 
+    // 创建窗口
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+    self.window.rootViewController = [[FCNavigationController alloc] initWithRootViewController:[[FCViewController alloc] init]];
+    [self.window makeKeyAndVisible];
     return YES;
 }
 

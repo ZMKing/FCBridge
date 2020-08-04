@@ -7,7 +7,7 @@
 //
 
 #import "FCMaskView.h"
-#import "FCConst.h"
+#import "FCColor.h"
 
 @interface FCMaskView()
 
@@ -102,35 +102,35 @@
     if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeLeft || [[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight) {
         
         //提示框
-        self.hintLabel.frame = CGRectMake(0, 0, self.frame.size.height * FCScanRatio, 60);
-        self.hintLabel.center = CGPointMake(self.maskView.center.x, self.maskView.center.y + (self.frame.size.height * FCScanRatio) * 0.5 + 25);
+        self.hintLabel.frame = CGRectMake(0, 0, self.frame.size.height * 0.68f, 60);
+        self.hintLabel.center = CGPointMake(self.maskView.center.x, self.maskView.center.y + (self.frame.size.height * 0.68f) * 0.5 + 25);
         //左上
-        self.topLeftImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.height * FCScanRatio)) * 0.5, (self.frame.size.height - (self.frame.size.height * FCScanRatio)) * 0.5, self.topLeftImg.image.size.width, self.topLeftImg.image.size.height);
+        self.topLeftImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.height * 0.68f)) * 0.5, (self.frame.size.height - (self.frame.size.height * 0.68f)) * 0.5, self.topLeftImg.image.size.width, self.topLeftImg.image.size.height);
         //右上
-        self.topRightImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.height * FCScanRatio)) * 0.5 - self.topRightImg.image.size.width + self.frame.size.height * FCScanRatio, (self.frame.size.height - (self.frame.size.height * FCScanRatio)) * 0.5, self.topRightImg.image.size.width, self.topRightImg.image.size.height);
+        self.topRightImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.height * 0.68f)) * 0.5 - self.topRightImg.image.size.width + self.frame.size.height * 0.68f, (self.frame.size.height - (self.frame.size.height * 0.68f)) * 0.5, self.topRightImg.image.size.width, self.topRightImg.image.size.height);
         //左下
-        self.bottomLeftImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.height * FCScanRatio)) * 0.5, (self.frame.size.height - (self.frame.size.height * FCScanRatio)) * 0.5 - self.bottomLeftImg.image.size.height + self.frame.size.height * FCScanRatio, self.bottomLeftImg.image.size.width, self.bottomLeftImg.image.size.height);
+        self.bottomLeftImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.height * 0.68f)) * 0.5, (self.frame.size.height - (self.frame.size.height * 0.68f)) * 0.5 - self.bottomLeftImg.image.size.height + self.frame.size.height * 0.68f, self.bottomLeftImg.image.size.width, self.bottomLeftImg.image.size.height);
         //右下
-        self.bottomRightImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.height * FCScanRatio)) * 0.5 - self.bottomRightImg.image.size.width + self.frame.size.height * FCScanRatio, (self.frame.size.height - (self.frame.size.height * FCScanRatio)) * 0.5 - self.bottomRightImg.image.size.width + self.frame.size.height * FCScanRatio, self.bottomRightImg.image.size.width, self.bottomRightImg.image.size.height);
+        self.bottomRightImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.height * 0.68f)) * 0.5 - self.bottomRightImg.image.size.width + self.frame.size.height * 0.68f, (self.frame.size.height - (self.frame.size.height * 0.68f)) * 0.5 - self.bottomRightImg.image.size.width + self.frame.size.height * 0.68f, self.bottomRightImg.image.size.width, self.bottomRightImg.image.size.height);
         //扫描线
-        self.scanLineImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.height * FCScanRatio)) * 0.5, (self.frame.size.height - (self.frame.size.height * FCScanRatio)) * 0.5, self.frame.size.height * FCScanRatio, scanLine.size.height);
+        self.scanLineImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.height * 0.68f)) * 0.5, (self.frame.size.height - (self.frame.size.height * 0.68f)) * 0.5, self.frame.size.height * 0.68f, scanLine.size.height);
         
     //竖屏
     }else{
         //提示框
-        self.hintLabel.frame = CGRectMake(0, 0, self.frame.size.width * FCScanRatio, 60);
+        self.hintLabel.frame = CGRectMake(0, 0, self.frame.size.width * 0.68f, 60);
         self.hintLabel.center = CGPointMake(self.maskView.center.x, 120);
         
         //左上
-        self.topLeftImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * FCScanRatio)) * 0.5, (self.frame.size.height - (self.frame.size.width * FCScanRatio)) * 0.5, topLeft.size.width, topLeft.size.height);
+        self.topLeftImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * 0.68f)) * 0.5, (self.frame.size.height - (self.frame.size.width * 0.68f)) * 0.5, topLeft.size.width, topLeft.size.height);
         //右上
-        self.topRightImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * FCScanRatio)) * 0.5 - topRight.size.width + self.frame.size.width * FCScanRatio, (self.frame.size.height - (self.frame.size.width * FCScanRatio)) * 0.5, topRight.size.width, topRight.size.height);
+        self.topRightImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * 0.68f)) * 0.5 - topRight.size.width + self.frame.size.width * 0.68f, (self.frame.size.height - (self.frame.size.width * 0.68f)) * 0.5, topRight.size.width, topRight.size.height);
         //左下
-        self.bottomLeftImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * FCScanRatio)) * 0.5, (self.frame.size.height - (self.frame.size.width * FCScanRatio)) * 0.5 - bottomLeft.size.height + self.frame.size.width * FCScanRatio, bottomLeft.size.width, bottomLeft.size.height);
+        self.bottomLeftImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * 0.68f)) * 0.5, (self.frame.size.height - (self.frame.size.width * 0.68f)) * 0.5 - bottomLeft.size.height + self.frame.size.width * 0.68f, bottomLeft.size.width, bottomLeft.size.height);
         //右下
-        self.bottomRightImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * FCScanRatio)) * 0.5 - bottomRight.size.width + self.frame.size.width * FCScanRatio, (self.frame.size.height - (self.frame.size.width * FCScanRatio)) * 0.5 - bottomRight.size.width + self.frame.size.width * FCScanRatio, bottomRight.size.width, bottomRight.size.height);
+        self.bottomRightImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * 0.68f)) * 0.5 - bottomRight.size.width + self.frame.size.width * 0.68f, (self.frame.size.height - (self.frame.size.width * 0.68f)) * 0.5 - bottomRight.size.width + self.frame.size.width * 0.68f, bottomRight.size.width, bottomRight.size.height);
         //扫描线
-        self.scanLineImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * FCScanRatio)) * 0.5, (self.frame.size.height - (self.frame.size.width * FCScanRatio)) * 0.5, self.frame.size.width * FCScanRatio, scanLine.size.height);
+        self.scanLineImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * 0.68f)) * 0.5, (self.frame.size.height - (self.frame.size.width * 0.68f)) * 0.5, self.frame.size.width * 0.68f, scanLine.size.height);
     }
 }
 
@@ -150,13 +150,13 @@
         //横屏
         if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeLeft || [[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight){
             
-            animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(self.center.x, (self.center.y - self.frame.size.height * FCScanRatio * 0.5 + self.scanLineImg.image.size.height * 0.5))];
-            animation.toValue = [NSValue valueWithCGPoint:CGPointMake(self.center.x, (self.center.y + self.frame.size.height * FCScanRatio * 0.5 - self.scanLineImg.image.size.height * 0.5))];
+            animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(self.center.x, (self.center.y - self.frame.size.height * 0.68f * 0.5 + self.scanLineImg.image.size.height * 0.5))];
+            animation.toValue = [NSValue valueWithCGPoint:CGPointMake(self.center.x, (self.center.y + self.frame.size.height * 0.68f * 0.5 - self.scanLineImg.image.size.height * 0.5))];
             
         //竖屏
         }else{
-            animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(self.center.x, (self.center.y - self.frame.size.width * FCScanRatio * 0.5 + self.scanLineImg.image.size.height * 0.5))];
-            animation.toValue = [NSValue valueWithCGPoint:CGPointMake(self.center.x, self.center.y + self.frame.size.width * FCScanRatio * 0.5 - self.scanLineImg.image.size.height * 0.5)];
+            animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(self.center.x, (self.center.y - self.frame.size.width * 0.68f * 0.5 + self.scanLineImg.image.size.height * 0.5))];
+            animation.toValue = [NSValue valueWithCGPoint:CGPointMake(self.center.x, self.center.y + self.frame.size.width * 0.68f * 0.5 - self.scanLineImg.image.size.height * 0.5)];
         }
         
         _isFirstTransition = NO;
@@ -166,15 +166,15 @@
         //横屏
         if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeLeft || [[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight){
             
-            animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(self.center.x, (self.frame.size.height - (self.frame.size.width * FCScanRatio)) * 0.5)];
-            animation.toValue = [NSValue valueWithCGPoint:CGPointMake(self.center.x, self.scanLineImg.frame.origin.y + self.frame.size.width * FCScanRatio - self.scanLineImg.frame.size.height * 0.5)];
+            animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(self.center.x, (self.frame.size.height - (self.frame.size.width * 0.68f)) * 0.5)];
+            animation.toValue = [NSValue valueWithCGPoint:CGPointMake(self.center.x, self.scanLineImg.frame.origin.y + self.frame.size.width * 0.68f - self.scanLineImg.frame.size.height * 0.5)];
             
             
             //竖屏
         }else{
             
-            animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(self.center.x, (self.frame.size.height - (self.frame.size.height * FCScanRatio)) * 0.5)];
-            animation.toValue = [NSValue valueWithCGPoint:CGPointMake(self.center.x, self.scanLineImg.frame.origin.y + self.frame.size.height * FCScanRatio - self.scanLineImg.frame.size.height * 0.5)];
+            animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(self.center.x, (self.frame.size.height - (self.frame.size.height * 0.68f)) * 0.5)];
+            animation.toValue = [NSValue valueWithCGPoint:CGPointMake(self.center.x, self.scanLineImg.frame.origin.y + self.frame.size.height * 0.68f - self.scanLineImg.frame.size.height * 0.5)];
         }
     }
     
@@ -195,11 +195,11 @@
         //横屏
         if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeLeft || [[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight){
             
-            [self.bezier appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake((self.frame.size.width - (self.frame.size.height * FCScanRatio)) * 0.5, (self.frame.size.height - (self.frame.size.height * FCScanRatio)) * 0.5, self.frame.size.height * FCScanRatio, self.frame.size.height * FCScanRatio)] bezierPathByReversingPath]];
+            [self.bezier appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake((self.frame.size.width - (self.frame.size.height * 0.68f)) * 0.5, (self.frame.size.height - (self.frame.size.height * 0.68f)) * 0.5, self.frame.size.height * 0.68f, self.frame.size.height * 0.68f)] bezierPathByReversingPath]];
             
             //竖屏
         }else{
-            [self.bezier appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake((self.frame.size.width - (self.frame.size.width * FCScanRatio)) * 0.5, (self.frame.size.height - (self.frame.size.width * FCScanRatio)) * 0.5, self.frame.size.width * FCScanRatio, self.frame.size.width * FCScanRatio)] bezierPathByReversingPath]];
+            [self.bezier appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake((self.frame.size.width - (self.frame.size.width * 0.68f)) * 0.5, (self.frame.size.height - (self.frame.size.width * 0.68f)) * 0.5, self.frame.size.width * 0.68f, self.frame.size.width * 0.68f)] bezierPathByReversingPath]];
         }
     
     //非第一次旋转
@@ -207,11 +207,11 @@
         //横屏
         if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeLeft || [[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight){
             
-            [self.bezier appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake((self.frame.size.width - (self.frame.size.width * FCScanRatio)) * 0.5, (self.frame.size.height - (self.frame.size.width * FCScanRatio)) * 0.5, self.frame.size.width * FCScanRatio, self.frame.size.width * FCScanRatio)] bezierPathByReversingPath]];
+            [self.bezier appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake((self.frame.size.width - (self.frame.size.width * 0.68f)) * 0.5, (self.frame.size.height - (self.frame.size.width * 0.68f)) * 0.5, self.frame.size.width * 0.68f, self.frame.size.width * 0.68f)] bezierPathByReversingPath]];
             
             //竖屏
         }else{
-            [self.bezier appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake((self.frame.size.width - (self.frame.size.height * FCScanRatio)) * 0.5, (self.frame.size.height - (self.frame.size.height * FCScanRatio)) * 0.5, self.frame.size.height * FCScanRatio, self.frame.size.height * FCScanRatio)] bezierPathByReversingPath]];
+            [self.bezier appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake((self.frame.size.width - (self.frame.size.height * 0.68f)) * 0.5, (self.frame.size.height - (self.frame.size.height * 0.68f)) * 0.5, self.frame.size.height * 0.68f, self.frame.size.height * 0.68f)] bezierPathByReversingPath]];
         }
     }
     
@@ -245,34 +245,34 @@
     //横屏(转前是横屏，转后才是竖屏)
     if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeLeft || [[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight){
         
-        self.hintLabel.frame = CGRectMake(0, 0, self.frame.size.width * FCScanRatio, 60);
+        self.hintLabel.frame = CGRectMake(0, 0, self.frame.size.width * 0.68f, 60);
         self.hintLabel.center = CGPointMake(self.maskView.center.x, 120);
         
-        self.topLeftImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * FCScanRatio)) * 0.5, (self.frame.size.height - (self.frame.size.width * FCScanRatio)) * 0.5, self.topLeftImg.image.size.width, self.topLeftImg.image.size.height);
+        self.topLeftImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * 0.68f)) * 0.5, (self.frame.size.height - (self.frame.size.width * 0.68f)) * 0.5, self.topLeftImg.image.size.width, self.topLeftImg.image.size.height);
         
-        self.topRightImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * FCScanRatio)) * 0.5 - self.topRightImg.image.size.width + self.frame.size.width * FCScanRatio, (self.frame.size.height - (self.frame.size.width * FCScanRatio)) * 0.5, self.topRightImg.image.size.width, self.topRightImg.image.size.height);
+        self.topRightImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * 0.68f)) * 0.5 - self.topRightImg.image.size.width + self.frame.size.width * 0.68f, (self.frame.size.height - (self.frame.size.width * 0.68f)) * 0.5, self.topRightImg.image.size.width, self.topRightImg.image.size.height);
         
-        self.bottomLeftImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * FCScanRatio)) * 0.5, (self.frame.size.height - (self.frame.size.width * FCScanRatio)) * 0.5 - self.bottomLeftImg.image.size.height + self.frame.size.width * FCScanRatio, self.bottomLeftImg.image.size.width, self.bottomLeftImg.image.size.height);
+        self.bottomLeftImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * 0.68f)) * 0.5, (self.frame.size.height - (self.frame.size.width * 0.68f)) * 0.5 - self.bottomLeftImg.image.size.height + self.frame.size.width * 0.68f, self.bottomLeftImg.image.size.width, self.bottomLeftImg.image.size.height);
         
-        self.bottomRightImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * FCScanRatio)) * 0.5 - self.bottomRightImg.image.size.width + self.frame.size.width * FCScanRatio, (self.frame.size.height - (self.frame.size.width * FCScanRatio)) * 0.5 - self.bottomRightImg.image.size.width + self.frame.size.width * FCScanRatio, self.bottomRightImg.image.size.width, self.bottomRightImg.image.size.height);
+        self.bottomRightImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * 0.68f)) * 0.5 - self.bottomRightImg.image.size.width + self.frame.size.width * 0.68f, (self.frame.size.height - (self.frame.size.width * 0.68f)) * 0.5 - self.bottomRightImg.image.size.width + self.frame.size.width * 0.68f, self.bottomRightImg.image.size.width, self.bottomRightImg.image.size.height);
         
-        self.scanLineImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * FCScanRatio)) * 0.5, (self.frame.size.height - (self.frame.size.width * FCScanRatio)) * 0.5, self.frame.size.width * FCScanRatio, self.scanLineImg.image.size.height);
+        self.scanLineImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * 0.68f)) * 0.5, (self.frame.size.height - (self.frame.size.width * 0.68f)) * 0.5, self.frame.size.width * 0.68f, self.scanLineImg.image.size.height);
         [self.scanLineImg.layer addAnimation:[self animation] forKey:nil];
         
     //竖屏(转前是竖屏，转后才是横屏)
     }else{
-        self.hintLabel.frame = CGRectMake(0, 0, self.frame.size.height * FCScanRatio, 60);
-        self.hintLabel.center = CGPointMake(self.maskView.center.x, self.maskView.center.y + (self.frame.size.height * FCScanRatio) * 0.5 + 25);
+        self.hintLabel.frame = CGRectMake(0, 0, self.frame.size.height * 0.68f, 60);
+        self.hintLabel.center = CGPointMake(self.maskView.center.x, self.maskView.center.y + (self.frame.size.height * 0.68f) * 0.5 + 25);
         
-        self.topLeftImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.height * FCScanRatio)) * 0.5, (self.frame.size.height - (self.frame.size.height * FCScanRatio)) * 0.5, self.topLeftImg.image.size.width, self.topLeftImg.image.size.height);
+        self.topLeftImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.height * 0.68f)) * 0.5, (self.frame.size.height - (self.frame.size.height * 0.68f)) * 0.5, self.topLeftImg.image.size.width, self.topLeftImg.image.size.height);
         
-        self.topRightImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.height * FCScanRatio)) * 0.5 - self.topRightImg.image.size.width + self.frame.size.height * FCScanRatio, (self.frame.size.height - (self.frame.size.height * FCScanRatio)) * 0.5, self.topRightImg.image.size.width, self.topRightImg.image.size.height);
+        self.topRightImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.height * 0.68f)) * 0.5 - self.topRightImg.image.size.width + self.frame.size.height * 0.68f, (self.frame.size.height - (self.frame.size.height * 0.68f)) * 0.5, self.topRightImg.image.size.width, self.topRightImg.image.size.height);
         
-        self.bottomLeftImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.height * FCScanRatio)) * 0.5, (self.frame.size.height - (self.frame.size.height * FCScanRatio)) * 0.5 - self.bottomLeftImg.image.size.height + self.frame.size.height * FCScanRatio, self.bottomLeftImg.image.size.width, self.bottomLeftImg.image.size.height);
+        self.bottomLeftImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.height * 0.68f)) * 0.5, (self.frame.size.height - (self.frame.size.height * 0.68f)) * 0.5 - self.bottomLeftImg.image.size.height + self.frame.size.height * 0.68f, self.bottomLeftImg.image.size.width, self.bottomLeftImg.image.size.height);
         
-        self.bottomRightImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.height * FCScanRatio)) * 0.5 - self.bottomRightImg.image.size.width + self.frame.size.height * FCScanRatio, (self.frame.size.height - (self.frame.size.height * FCScanRatio)) * 0.5 - self.bottomRightImg.image.size.width + self.frame.size.height * FCScanRatio, self.bottomRightImg.image.size.width, self.bottomRightImg.image.size.height);
+        self.bottomRightImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.height * 0.68f)) * 0.5 - self.bottomRightImg.image.size.width + self.frame.size.height * 0.68f, (self.frame.size.height - (self.frame.size.height * 0.68f)) * 0.5 - self.bottomRightImg.image.size.width + self.frame.size.height * 0.68f, self.bottomRightImg.image.size.width, self.bottomRightImg.image.size.height);
 
-        self.scanLineImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.height * FCScanRatio)) * 0.5, (self.frame.size.height - (self.frame.size.height * FCScanRatio)) * 0.5, self.frame.size.height * FCScanRatio, self.scanLineImg.image.size.height);
+        self.scanLineImg.frame = CGRectMake((self.frame.size.width - (self.frame.size.height * 0.68f)) * 0.5, (self.frame.size.height - (self.frame.size.height * 0.68f)) * 0.5, self.frame.size.height * 0.68f, self.scanLineImg.image.size.height);
         [self.scanLineImg.layer addAnimation:[self animation] forKey:nil];
     }
 }

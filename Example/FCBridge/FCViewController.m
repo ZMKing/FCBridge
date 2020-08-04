@@ -22,25 +22,32 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib. https://www.shuimuchangxiang.com/location.html  http://175.24.11.42:10015/
     
-    TestWebViewController *testC = [[TestWebViewController alloc]   initWithURLString:@"http://175.24.11.42:10015/"];
-    testC.view.frame = self.view.bounds;
+    self.view.backgroundColor = [UIColor whiteColor];
     
-    [self addChildViewController:testC];
-    [self.view addSubview:testC.view];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setTitle:@"跳转web" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    btn.frame = CGRectMake(100, 200, 200, 200);
+    [btn addTarget:self action:@selector(toWebBtn) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backNavigation) name:@"h5JumpNavigationBack" object:nil];
+ 
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)backNavigation{
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
-- (IBAction)toWebViewBtn:(id)sender {
+
+- (void)toWebBtn {
     
     
-   
+    TestWebViewController *testC = [[TestWebViewController alloc]   initWithURLString:@"http://175.24.11.42:10015/"];
     
-   // [self presentViewController:testC animated:YES completion:nil];
-    
+       [self.navigationController pushViewController:testC animated:YES];
 }
+
+
 
 @end
