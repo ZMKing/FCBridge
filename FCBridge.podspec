@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   #开源库当期版本
   s.version          = '1.0.0'
   #开源库概述（打开GitHub能看到的描述）
-  s.summary          = 'A short description of FCBridge.'
+  s.summary          = '本库 是用来桥接oc 与 js的交互， 使用js调用oc的对应方法，来获取oc原生功能的实现。'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 #开源库描述 （这个描述会被用来生成开源库的标签和提高被搜到，必需写在中间一行，只要在中间一行，不需要考虑缩进）
-  s.description      = 'based on WKWebView'
+  s.description      = '本库 是用来桥接oc 与 js的交互， 使用js调用oc的对应方法，来获取oc原生功能的实现。'
   #可以是开源库的GitHub地址，也可以是你自己的网址等
   s.homepage         = 'https://github.com/ZMKing/FCBridge'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
