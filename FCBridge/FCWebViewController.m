@@ -10,25 +10,25 @@
 #import "FCWebViewController.h"
 #import "UIProgressView+WKWebView.h"
 #import "FCWKCustomProtocol.h"
-typedef enum : NSUInteger {
-    FCWebViewLoadTypeNetRequest,    //网络请求
-    FCWebViewLoadTypeHTMLString,    //HTML模板
-    FCWebViewLoadTypeFile,          //文件路径
-} FCWebViewLoadType;
 
 static NSString *POSTRequest = @"POST";
 
 @interface FCWebViewController ()<WKNavigationDelegate, WKUIDelegate>
-@property (nonatomic, strong) UIView                 *containerView;
-@property (nonatomic, strong) UIProgressView         *progressView;
-@property (nonatomic, assign) BOOL                   checkUrlCanOpen;
-@property (nonatomic, assign) BOOL                   terminate;
-@property (nonatomic, assign) FCWebViewLoadType     loadType;
+@property (nonatomic, strong) UIView                 *containerView;             //容器
+@property (nonatomic, strong) UIProgressView         *progressView;              //进度条
+@property (nonatomic, strong) UIBarButtonItem        *doneItem;                  //modal关闭item
+@property (nonatomic, strong) UIBarButtonItem        *backNavLeftItem;           //back item
+@property (nonatomic, strong) UIBarButtonItem        *closeNavLeftItem;          //close item
+@property (nonatomic, assign) BOOL                   checkUrlCanOpen;            //检查url能否打开
+@property (nonatomic, assign) BOOL                   terminate;                  //WebView是否异常终止
+@property (nonatomic, assign) BOOL                   showCloseNavLeftItem;
+@property (nonatomic, strong) NSMutableURLRequest    *request;                   //WebView入口请求
+@property (nonatomic, strong) dispatch_block_t       alertAction;                //alert pannel执行存储
 @end
 
 @implementation FCWebViewController
 
-#pragma mark - Init
+#pragma mark - 初始化方法栈
 - (instancetype)initWithURLString:(NSString *)urlString {
     return [self initWithURL:[NSURL URLWithString:urlString]];
 }
@@ -40,39 +40,25 @@ static NSString *POSTRequest = @"POST";
 - (instancetype)initWithURLRequest:(NSMutableURLRequest *)request {
     if (self = [self init]) {
         _request = request;
-        _loadType = FCWebViewLoadTypeNetRequest;
-    }
-    return self;
-}
-
-- (instancetype)initWithHTMLString:(NSString *)htmlString {
-    if (self = [self init]) {
-        _htmlString = htmlString;
-        _loadType = FCWebViewLoadTypeHTMLString;
-    }
-    return self;
-}
-
-- (instancetype)initWithFileURL:(NSURL *)fileURL {
-    if (self = [self init]) {
-        _fileURL = fileURL;
-        _loadType = FCWebViewLoadTypeFile;
     }
     return self;
 }
 
 - (instancetype)init {
     if (self = [super init]) {
-        _allowsBFNavigationGesture  = NO;
-        _showProgressView           = YES;
-        _needInterceptRequest       = NO;
-        _terminate                  = NO;
-        _webView = [[FCWKWebViewPool sharedInstance] getReusedWebViewForHolder:self];
-        [_webView useExternalNavigationDelegate];
-        [_webView setMainNavigationDelegate:self];
-        _webView.UIDelegate = self;
+        [self initData];
     }
     return self;
+}
+
+- (void)initData {
+    _timeoutInternal            = 15.0;
+    _cachePolicy                = NSURLRequestReloadIgnoringCacheData;
+    _allowsBFNavigationGesture  = NO;
+    _showProgressView           = YES;
+    _needInterceptRequest       = NO;
+    _terminate                  = NO;
+    _showCloseNavLeftItem       = YES;
 }
 
 #pragma mark - View Life Cycle
@@ -80,6 +66,7 @@ static NSString *POSTRequest = @"POST";
     [super viewDidLoad];
     [self sutupUI];
     [self fetchData];
+    [self addSusNotification];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -97,14 +84,18 @@ static NSString *POSTRequest = @"POST";
 #pragma mark - UI & Fetch Data
 - (void)sutupUI {
     self.view.backgroundColor = [UIColor whiteColor];
-    
-    if (_isRootController) {
-        self.navigationItem.leftBarButtonItems = nil;
-    } else {
-        self.navigationItem.leftBarButtonItem = self.backItem;
+    self.navigationItem.leftBarButtonItem = self.backNavLeftItem;
+    if (self.navigationController && [self.navigationController isBeingPresented]) {
+        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonClicked:)];
+        _doneItem = doneButton;
+        self.navigationItem.rightBarButtonItem = doneButton;
     }
     
     //WebView
+    _webView = [[FCWKWebViewPool sharedInstance] getReusedWebViewForHolder:self];
+    [_webView useExternalNavigationDelegate];
+    [_webView setMainNavigationDelegate:self];
+    _webView.UIDelegate = self;
     _webView.allowsBackForwardNavigationGestures = _allowsBFNavigationGesture;
     if (_showProgressView) {
         [_webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
@@ -117,18 +108,16 @@ static NSString *POSTRequest = @"POST";
 - (void)fetchData {
     if(!_request) return;
     [self.webView writeCookie:self.cookies completion:^{
-        if (self.loadType == FCWebViewLoadTypeNetRequest) {
-            if(self.request) [self loadRequest:self.request];
-        } else if (self.loadType == FCWebViewLoadTypeHTMLString) {
-            if (self.htmlString) [self.webView loadHTMLString:self.htmlString baseURL:nil];
-        } else if (self.loadType == FCWebViewLoadTypeFile) {
-            if (self.fileURL) {
-                if (@available(iOS 9.0, *)) {
-                    [self.webView loadFileURL:self.fileURL allowingReadAccessToURL:nil];
-                }
-            }
-        }
+        [self loadURLRequest:self->_request];
     }];
+}
+
+- (void)clickLeftBarButtonItem {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)backItem {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark- KVO
@@ -149,7 +138,7 @@ static NSString *POSTRequest = @"POST";
             [_progressView setProgress:progress animated:NO];
         }
     }else if ([keyPath isEqualToString:@"title"]) {
-        [self updateNavigationTitle];
+        [self _updateNavigationTitle];
         [self updateNavigationItems];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -157,13 +146,16 @@ static NSString *POSTRequest = @"POST";
 }
 
 #pragma mark - LoadRequest
-- (void)loadRequest:(NSURLRequest *)request {
+- (void)loadURLRequest:(NSMutableURLRequest *)request {
+    request.timeoutInterval = _timeoutInternal;
+    request.cachePolicy = _cachePolicy;
+    
     if ([request.HTTPMethod isEqualToString:POSTRequest]) {
         [_webView clearBrowseHistory];
-        [self loadPostRequest:request.mutableCopy];
+        [self loadPostRequest:request];
     }else{
         [_webView clearBrowseHistory];
-        [_webView FC_loadRequest:request];
+        [_webView FC_loadRequest:request.copy];
     }
 }
 
@@ -194,80 +186,77 @@ static NSString *POSTRequest = @"POST";
     _progressView.frame = barFrame;
 }
 
-//更新页面title
-- (void)updateNavigationTitle {
+- (void)_updateNavigationTitle {
     NSString *title = self.title;
-    title = title.length > 0 ? title : [self.webView title];
+    title = title.length > 0 ? title: [self.webView title];
     self.navigationItem.title = title;
 }
 
-//更新leftNavItems
 - (void)updateNavigationItems {
     if (self.webView.canGoBack) {
-        if (_isRootController) {
-            self.navigationItem.leftBarButtonItems = @[self.backItem];
-        } else {
-            self.navigationItem.leftBarButtonItems = @[self.backItem, self.closeItem];
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+        if (self.showCloseNavLeftItem){
+            [self.navigationItem setLeftBarButtonItems:@[self.backNavLeftItem, self.closeNavLeftItem] animated:NO];
+        }else{
+            [self.navigationItem setLeftBarButtonItems:@[self.backNavLeftItem] animated:NO];
         }
     } else {
-        if (_isRootController) {
-            self.navigationItem.leftBarButtonItems = nil;
-        } else {
-            self.navigationItem.leftBarButtonItems = @[self.backItem];
-        }
+        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+        [self.navigationItem setLeftBarButtonItems:nil animated:NO];
     }
 }
 
-//返回item
-- (UIBarButtonItem *)backItem {
-    if (_backItem) return _backItem;
-    //NSString *backImgPath = [_resourcePath stringByAppendingString:@"/webView_back"];
-    NSString *bundlePath = _backImagePath ?: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"FCJSResources.bundle"];
-    NSString *backImgPath = [bundlePath stringByAppendingPathComponent:@"webView_back"];
-    UIImage *backImage = [UIImage imageNamed:backImgPath];
-    
-    
-    _backItem = [[UIBarButtonItem alloc] initWithImage:backImage
-                                                 style:UIBarButtonItemStylePlain
-                                                target:self
-                                                action:@selector(backItemClick:)];
-    return _backItem;
+- (UIBarButtonItem *)backNavLeftItem {
+    if (_backNavLeftItem) return _backNavLeftItem;
+    NSString *imagePath;
+    if (_backImagePath) {
+        imagePath = _backImagePath;
+    } else {
+        NSString *bundlePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"JSResources.bundle"];
+        imagePath = [bundlePath stringByAppendingPathComponent:@"webView_back"];
+    }
+    UIImage *backImage = [[UIImage imageNamed:imagePath] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    _backNavLeftItem = [[UIBarButtonItem alloc] initWithImage:backImage style:UIBarButtonItemStylePlain target:self action:@selector(navigationItemHandleBack:)];
+    return _backNavLeftItem;
 }
 
-//关闭item
-- (UIBarButtonItem *)closeItem {
-    if (_closeItem) return _closeItem;
-    //NSString *closeImgPath = [_resourcePath stringByAppendingString:@"/webView_close"];
-    NSString *bundlePath = _closeImagePath ?: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"FCJSResources.bundle"];
-    NSString *closeImgPath = [bundlePath stringByAppendingPathComponent:@"webView_close"];
-    UIImage *closeImage = [UIImage imageNamed:closeImgPath];
-    _closeItem = [[UIBarButtonItem alloc] initWithImage:closeImage
-                                                  style:UIBarButtonItemStylePlain
-                                                 target:self
-                                                 action:@selector(closeItemClick:)];
-    return _closeItem;
-}
-
-
-- (void)backItemClick:(UIBarButtonItem *)sender {
-    if ([self.webView canGoBack]) {
+- (void)navigationItemHandleBack:(UIBarButtonItem *)sender {
+    if ([_webView canGoBack]) {
         [self goBack];
         return;
     }
     
-    [self handleNavigation];
-}
-
-- (void)closeItemClick:(UIBarButtonItem *)sender {
-    [self handleNavigation];
-}
-
-- (void)handleNavigation {
-    if (self.navigationController.presentingViewController && self.navigationController.childViewControllers.count == 1) {
+    if (self.navigationController.presentingViewController) {
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-    } else {
+    }else{
         [self.navigationController popViewControllerAnimated:YES];
     }
+}
+
+- (UIBarButtonItem *)closeNavLeftItem {
+    if (_closeNavLeftItem) return _closeNavLeftItem;
+    NSString *imagePath;
+    if (_closeImagePath) {
+        imagePath = _closeImagePath;
+    } else {
+        NSString *bundlePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"JSResources.bundle"];
+        imagePath = [bundlePath stringByAppendingPathComponent:@"webView_close"];
+    }
+    UIImage *closeItemImage = [[UIImage imageNamed:imagePath] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    if (self.navigationItem.rightBarButtonItem == _doneItem && self.navigationItem.rightBarButtonItem != nil) {
+        _closeNavLeftItem = [[UIBarButtonItem alloc] initWithImage:closeItemImage style:0 target:self action:@selector(doneButtonClicked:)];
+    } else {
+        _closeNavLeftItem = [[UIBarButtonItem alloc] initWithImage:closeItemImage style:0 target:self action:@selector(navigationIemHandleClose:)];
+    }
+    return _closeNavLeftItem;
+}
+
+- (void)navigationIemHandleClose:(UIBarButtonItem *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)doneButtonClicked:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 #pragma mark - WKNavigationDelegate
@@ -400,7 +389,7 @@ static NSString *POSTRequest = @"POST";
 }
 
 - (void)didFinishLoad{
-    [self updateNavigationTitle];
+    [self _updateNavigationTitle];
     [self updateNavigationItems];
     if (_delegate && [_delegate respondsToSelector:@selector(webViewControllerDidFinishLoad:)]) {
         [_delegate webViewControllerDidFinishLoad:self];
@@ -408,7 +397,7 @@ static NSString *POSTRequest = @"POST";
 }
 
 - (void)didFailLoadWithError:(NSError *)error{
-    [self updateNavigationTitle];
+    [self _updateNavigationTitle];
     [self updateNavigationItems];
     if (_delegate && [_delegate respondsToSelector:@selector(webViewController:didFailLoadWithError:)]) {
         [_delegate webViewController:self didFailLoadWithError:error];
@@ -424,8 +413,10 @@ static NSString *POSTRequest = @"POST";
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:message ? message : @"" preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             completionHandler();
+            self.alertAction = nil;
         }]];
         [vc presentViewController:alert animated:YES completion:NULL];
+        self.alertAction = completionHandler;
     }else{
         completionHandler();
     }
@@ -539,6 +530,10 @@ static NSString *POSTRequest = @"POST";
     [super didReceiveMemoryWarning];
 }
 
+- (void)addSusNotification {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_appDidEnterBackgroundNotification) name:UIApplicationDidEnterBackgroundNotification object:nil];
+}
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     if (_showProgressView) {
@@ -558,16 +553,16 @@ static NSString *POSTRequest = @"POST";
                                 schemes:(NSArray<NSString *> *)schemes
                           protocolClass:(Class)protocolClass {
     [FCWKWebView FC_registerProtocolWithHTTP:supportHTTP
-                             customSchemeArray:schemes
-                              urlProtocolClass:protocolClass];
+                           customSchemeArray:schemes
+                            urlProtocolClass:protocolClass];
 }
 
 - (void)unregisterSupportProtocolWithHTTP:(BOOL)supportHTTP
                                   schemes:(NSArray<NSString *> *)schemes
                             protocolClass:(Class)protocolClass {
     [FCWKWebView FC_unregisterProtocolWithHTTP:supportHTTP
-                               customSchemeArray:schemes
-                                urlProtocolClass:protocolClass];
+                             customSchemeArray:schemes
+                              urlProtocolClass:protocolClass];
 }
 
 - (void)syncCustomUserAgentWithType:(CustomUserAgentType)type customUserAgent:(NSString *)customUserAgent {
@@ -576,6 +571,14 @@ static NSString *POSTRequest = @"POST";
 
 - (void)loadHTMLTemplate:(NSString *)htmlTemplate {
     [_webView FC_loadHTMLTemplate:htmlTemplate];
+}
+
+- (void)_appDidEnterBackgroundNotification {
+    if (self.alertAction) {
+        self.alertAction();
+        self.alertAction = nil;
+        [UIApplication.sharedApplication.keyWindow.rootViewController dismissViewControllerAnimated:true completion:nil];
+    }
 }
 
 @end
