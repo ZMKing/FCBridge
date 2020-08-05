@@ -96,27 +96,27 @@
 - (void)func_getUserInfo:(NSDictionary *)param{
     
     void(^successCallback)(NSDictionary *result) = param[@"success"];
+    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:@"stuUserInfo"];
+    //    NSDictionary *resultDict = @{
+    //        @"id":@"1252844587228205056",
+    //        @"subject":@"",
+    //        @"disciplines":@"",
+    //        @"sex":@"2",
+    //        @"studenttel":@"18653009825",
+    //        @"collegecode":@"",
+    //        @"idcard":@"372922198603297894",
+    //        @"majorid":@"",
+    //        @"internationalcode":@"",
+    //        @"password":@"",
+    //        @"studentname":@"李再民",
+    //        @"professionallevel":@"",
+    //        @"personphone":@"",
+    //        @"classid":@"",
+    //        @"studentnum":@"",
+    //        @"createdate":@"",
+    //        @"photo" : @"http://dormitory.shuimuchangxiang.com:9000/group1/M00/00/00/wKgD-l6el7iAfQbyAAACPzUMOd8440.jpg",
+    //    };
 
-    NSDictionary *resultDict = @{
-        @"id":@"1252844587228205056",
-        @"subject":@"",
-        @"disciplines":@"",
-        @"sex":@"2",
-        @"studenttel":@"18653009825",
-        @"collegecode":@"",
-        @"idcard":@"372922198603297894",
-        @"majorid":@"",
-        @"internationalcode":@"",
-        @"password":@"",
-        @"studentname":@"李再民",
-        @"professionallevel":@"",
-        @"personphone":@"",
-        @"classid":@"",
-        @"studentnum":@"",
-        @"createdate":@"",
-        @"photo" : @"http://dormitory.shuimuchangxiang.com:9000/group1/M00/00/00/wKgD-l6el7iAfQbyAAACPzUMOd8440.jpg",
-    };
-
-    successCallback(@{@"data" : resultDict,@"msg":@"获取用户数据成功"});
+    successCallback(@{@"data" : dict,@"msg":@"获取用户数据成功"});
 }
 @end

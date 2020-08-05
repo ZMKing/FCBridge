@@ -127,7 +127,7 @@
               NSString *encodedImageStr = [imgData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn];
               void(^successCallback)(NSDictionary *result) = param[@"success"];
           
-             NSDictionary *resultDict = @{@"msg":@"读取未成功",@"data":@{@"base64ImgStr":encodedImageStr}};
+             NSDictionary *resultDict = @{@"msg":@"读取成功",@"data":@{@"base64ImgStr":encodedImageStr}};
           
               successCallback(resultDict);
           }];
@@ -152,7 +152,7 @@
               NSString *encodedImageStr = [imgData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn];
               void(^successCallback)(NSDictionary *result) = param[@"success"];
           
-              NSDictionary *resultDict = @{@"msg":@"读取未成功",@"data":@{@"base64ImgStr":encodedImageStr}};
+              NSDictionary *resultDict = @{@"msg":@"读取成功",@"data":@{@"base64ImgStr":encodedImageStr}};
           
               successCallback(resultDict);
           }];
@@ -201,7 +201,7 @@
                   NSString *encodedImageStr = [imgData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn];
                   void(^successCallback)(NSDictionary *result) = param[@"success"];
               
-                  NSDictionary *resultDict = @{@"msg":@"读取未成功",@"data":@{@"base64ImgStr":encodedImageStr}};
+                  NSDictionary *resultDict = @{@"msg":@"读取成功",@"data":@{@"base64ImgStr":encodedImageStr}};
               
                   successCallback(resultDict);
               }];
@@ -219,7 +219,7 @@
                   NSString *encodedImageStr = [imgData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn];
                   void(^successCallback)(NSDictionary *result) = param[@"success"];
               
-                  NSDictionary *resultDict = @{@"msg":@"读取未成功",@"data":@{@"base64ImgStr":encodedImageStr}};
+                  NSDictionary *resultDict = @{@"msg":@"读取成功",@"data":@{@"base64ImgStr":encodedImageStr}};
               
                   successCallback(resultDict);
               }];
