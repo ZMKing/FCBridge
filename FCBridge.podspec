@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   #开源库的名字
   s.name             = 'FCBridge'
   #开源库当期版本
-  s.version          = '1.0.3'
+  s.version          = '1.0.4'
   #开源库概述（打开GitHub能看到的描述）
   s.summary          = '本库 是用来桥接oc 与 js的交互， 使用js调用oc的对应方法，来获取oc原生功能的实现。'
 

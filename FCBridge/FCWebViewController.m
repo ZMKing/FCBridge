@@ -125,9 +125,11 @@ static NSString *POSTRequest = @"POST";
     if ([keyPath isEqualToString:@"estimatedProgress"]) {
         if (self.navigationController && self.progressView.superview != self.navigationController.navigationBar && self.showProgressView) {
             [self _updateFrameOfProgressView];
-            if (![self.navigationController isNavigationBarHidden]) {
+            if (!self.navigationController.navigationBar.isHidden) {
+                
                 [self.navigationController.navigationBar addSubview:self.progressView];
             }else{
+                
                 [_webView addSubview:self.progressView];
             }
         }
@@ -176,7 +178,7 @@ static NSString *POSTRequest = @"POST";
 
 #pragma mark - NavigationBar
 - (void)_updateFrameOfProgressView {
-    BOOL barHide = [self.navigationController isNavigationBarHidden];
+    BOOL barHide = self.navigationController.navigationBar.isHidden;
     CGFloat progressBarHeight = 2.0f;
     CGRect navigationBarBounds = self.navigationController.navigationBar.bounds;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
@@ -300,6 +302,7 @@ static NSString *POSTRequest = @"POST";
     
     //是否需要拦截请求
     if (_needInterceptRequest) {
+        
         [self interceptRequestWithNavigationAction:navigationAction decisionHandler:decisionHandler];
     }else{
         decisionHandler(WKNavigationActionPolicyAllow);
@@ -313,11 +316,19 @@ static NSString *POSTRequest = @"POST";
 
 //在收到响应后，决定是否跳转(表示当客户端收到服务器的响应头，根据response相关信息，可以决定这次跳转是否可以继续进行。)
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
-    decisionHandler(WKNavigationResponsePolicyAllow);
+    
+    if (((NSHTTPURLResponse *)navigationResponse.response).statusCode == 400 || ((NSHTTPURLResponse *)navigationResponse.response).statusCode == 403 || ((NSHTTPURLResponse *)navigationResponse.response).statusCode == 404 || ((NSHTTPURLResponse *)navigationResponse.response).statusCode == 405) {
+        
+         decisionHandler(WKNavigationResponsePolicyCancel);
+    }else{
+        
+        decisionHandler(WKNavigationResponsePolicyAllow);
+    }
 }
 
 //页面开始加载时调用
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation {
+    
     [self didStartLoad];
 }
 
@@ -328,9 +339,14 @@ static NSString *POSTRequest = @"POST";
 
 //加载失败时调用(加载内容时发生错误时)
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
+    
     if (error.code == NSURLErrorCancelled) {
+        
+        [self didFailLoadWithError:error];
+        
+        //NSLog(@"=====didFailProvisionalNavigation======%@", error);
         // [webView reloadFromOrigin];
-        return;
+        //return;
     }
     [self didFailLoadWithError:error];
 }
@@ -342,16 +358,19 @@ static NSString *POSTRequest = @"POST";
 
 //页面加载完成之后调用
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
+
     [self didFinishLoad];
 }
 
 //导航期间发生错误时调用
 - (void)webView:(WKWebView *)webView didFailNavigation: (null_unspecified WKNavigation *)navigation withError:(NSError *)error {
+    
     [self didFailLoadWithError:error];
 }
 
 //iOS9.0以上异常终止时调用
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView{
+    
     _terminate = YES;
     [webView reload];
 }
@@ -514,8 +533,17 @@ static NSString *POSTRequest = @"POST";
     if (_progressView) return _progressView;
     CGFloat progressBarHeight = 2.0f;
     CGRect navigationBarBounds = self.navigationController.navigationBar.bounds;
-    CGRect barFrame = CGRectMake(0, navigationBarBounds.size.height - progressBarHeight, navigationBarBounds.size.width, progressBarHeight);
-    _progressView = [[UIProgressView alloc] initWithFrame:barFrame];
+    // 如果navigationBar 隐藏了
+    if(!self.navigationController.navigationBar.isHidden){
+    
+         CGRect barFrame = CGRectMake(0, navigationBarBounds.size.height - progressBarHeight, navigationBarBounds.size.width, progressBarHeight);
+           _progressView = [[UIProgressView alloc] initWithFrame:barFrame];
+    }else{
+     
+         CGRect barFrame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, progressBarHeight);
+           _progressView = [[UIProgressView alloc] initWithFrame:barFrame];
+    }
+    
     _progressView.trackTintColor = [UIColor clearColor];
     _progressView.progressTintColor = _progressTintColor ? _progressTintColor : [UIColor orangeColor];
     _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
